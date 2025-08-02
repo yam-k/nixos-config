@@ -21,7 +21,8 @@ if [ ! -e {$project_dir} ]; then
 fi
 
 # Download configuration files
-nix-shell --packages git --command "git clone ${config_url} ${config_dir}" \
+nix-shell --packages git \
+          --command "git clone ${config_url} ${config_dir}" \
     || exit 1;
 
 # Build system
