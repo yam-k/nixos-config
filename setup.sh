@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Variables
-project_dir=${HOME}/project;
+project_dir=${HOME}/projects;
 config_dir=${project_dir}/nixos-config;
 config_url="https://github.com/yam-k/nixos-config.git";
 
