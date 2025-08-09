@@ -83,7 +83,7 @@
       settings = {
         globalOptions = {
           "Hotkey" = {
-            "TriggerKeys" = "Zenkaku_Hankaku";
+            # "TriggerKeys" = "Zenkaku_Hankaku";
             "AltTriggerKeys" = "";
             "EnumerateForwardKeys" = "";
             "EnumerateBackwardKeys" = "";
@@ -147,6 +147,7 @@
     python3Full
     wofi
     kdePackages.konsole
+    google-chrome
     nyxt
     dropbox-cli
     calibre
@@ -156,6 +157,7 @@
     kdePackages.k3b
     vlc
     libdvdcss
+    virt-manager
   ];
 
   # GNU Emacs
