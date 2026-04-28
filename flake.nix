@@ -1,16 +1,28 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    hyprland.url = "github:hyprwm/hyprland";
   };
 
-  outputs = inputs: {
-    nixosConfigurations = {
-      "kobako" = inputs.nixpkgs.lib.nixosSystem {
-        modules = [
-          ./configuration.nix
-        ];
+  outputs = inputs:
+    let
+      pkgs-unstable = import inputs.nixpkgs-unstable {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
       };
-    };
-  };
+    in
+      {
+        nixosConfigurations = {
+          "kobako" = inputs.nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit inputs;
+              inherit pkgs-unstable;
+            };
+            modules = [
+              ./configuration.nix
+            ];
+          };
+        };
+      };
 }
-
