@@ -14,6 +14,9 @@
       dropbox-cli
     ]);
 
+  # direnv
+  programs.direnv.enable = true;
+
   # GNU Emacs
   services.emacs = {
     install = true;
