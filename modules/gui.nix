@@ -1,73 +1,9 @@
-{ inputs, pkgs, pkgs-unstable, lib, ... }:
+{ inputs, pkgs, lib, ... }:
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [
       inputs.hyprland.nixosModules.default
     ];
-
-  # NixOS version used for installation
-  system.stateVersion = "25.11";
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # Experimental features
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
-  # Bootloader
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-  };
-
-  # Networking
-  networking = {
-    hostName = "kobako";
-    networkmanager.enable = true;
-    nameservers = [
-      "1.1.1.1"
-      "8.8.8.8"
-    ];
-  };
-
-  # Sounds
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  # Printer
-  services.printing.enable = true;
-
-  # USB
-  services.udisks2.enable = true;
-
-  # Time zone
-  time.timeZone = "Asia/Tokyo";
-
-  # Internationalisation
-  i18n = {
-    defaultLocale = "ja_JP.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "ja_JP.UTF-8";
-      LC_IDENTIFICATION = "ja_JP.UTF-8";
-      LC_MEASUREMENT = "ja_JP.UTF-8";
-      LC_MONETARY = "ja_JP.UTF-8";
-      LC_NAME = "ja_JP.UTF-8";
-      LC_NUMERIC = "ja_JP.UTF-8";
-      LC_PAPER = "ja_JP.UTF-8";
-      LC_TELEPHONE = "ja_JP.UTF-8";
-      LC_TIME = "ja_JP.UTF-8";
-    };
-  };
 
   # Display manager
   services.displayManager.sddm = {
@@ -163,61 +99,5 @@
   services.xserver.xkb = {
     layout = "us";
     variant = "";
-  };
-
-  # Users
-  users.users = {
-    "kei" = {
-      isNormalUser = true;
-      description = "YAMAMOTO Kei";
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-      ];
-      packages = (with pkgs; [
-        stow
-        wget
-        curl
-        unzip
-        pandoc
-        texliveFull
-        vivaldi
-        calibre
-        kdePackages.okular
-        kdePackages.audex
-        flac
-        kdePackages.elisa
-        kdePackages.k3b
-        libdvdcss
-        vlc
-      ]);
-    };
-  };
-
-  # System packages
-  environment.systemPackages =
-    (with pkgs; [
-      git
-      udiskie
-      alacritty
-      fuzzel
-      nyxt
-    ])
-    ++
-    (with pkgs-unstable; [
-      dropbox-cli
-    ]);
-
-  # GNU Emacs
-  services.emacs = {
-    install = true;
-    defaultEditor = true;
-    package = pkgs.emacs-pgtk;
-  };
-
-  # Steam
-  programs.steam = {
-    enable = true;
-    extest.enable = true;
   };
 }

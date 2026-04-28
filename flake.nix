@@ -20,7 +20,14 @@
               inherit pkgs-unstable;
             };
             modules = [
-              ./configuration.nix
+              ./modules/hardware-configuration.nix
+
+              ./modules/system.nix
+              ./modules/devices.nix
+              ./modules/l10n.nix
+              ./modules/gui.nix
+              ./modules/packages.nix
+              ./modules/users.nix
             ];
           };
         };
